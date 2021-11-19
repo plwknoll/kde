@@ -1,0 +1,11 @@
+LICENSE
+MANIFEST.in
+README.md
+pyproject.toml
+setup.cfg
+kde/__init__.py
+kde/kde.py
+kde.egg-info/PKG-INFO
+kde.egg-info/SOURCES.txt
+kde.egg-info/dependency_links.txt
+kde.egg-info/top_level.txt
