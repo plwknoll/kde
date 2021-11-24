@@ -5,7 +5,7 @@ from scipy.special import ndtr
 class KDE:
     
     def __init__(self, obs, h = None, cutoff = None):
-        self.obs = obs
+        self.obs = np.array(obs, dtype = "float64")
         self.n = len(obs)
         self.cutoff = cutoff
         
@@ -41,7 +41,7 @@ class KDE:
             return res
     
     def uncut_pdf(self,x):
-        x = np.array(x)
+        x = np.array(x, dtype = "float64")
         return self.kernel((x.reshape(-1,1) - self.obs) / self.h).mean(axis=1) / self.h
     
     def cdf(self,x):
@@ -55,7 +55,7 @@ class KDE:
             return res
     
     def uncut_cdf(self, x):
-        x = np.array(x)
+        x = np.array(x, dtype = "float64")
         
         return ndtr((x.reshape(-1,1) - self.obs) / self.h).mean(axis=1)
     
