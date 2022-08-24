@@ -60,4 +60,7 @@ class KDE:
         return ndtr((x.reshape(-1,1) - self.obs) / self.h).mean(axis=1)
     
     def inv_cdf(self,x):
-        return minimize((lambda s, t : (self.cdf(s) - t)**2), x0=50, args = x, bounds=[(min(self.obs), max(self.obs))], tol=1E-10).x[0]
+        min_obs = min(self.obs)
+        max_obs = max(self.obs)
+        mid_obs = (min_obs + max_obs) / 2
+        return minimize((lambda s, t : (self.cdf(s) - t)**2), x0=mid_obs, args = x, bounds=[(min_obs, max_obs)], tol=1E-10).x[0]
