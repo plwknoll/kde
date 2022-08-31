@@ -9,6 +9,7 @@ class KDE:
         self.n = len(obs)
         self.cutoff = cutoff
         
+        self.pdf = np.vectorize(self.pdf)
         self.inv_cdf = np.vectorize(self.inv_cdf)
         
         if h is not None:
@@ -60,7 +61,7 @@ class KDE:
         return ndtr((x.reshape(-1,1) - self.obs) / self.h).mean(axis=1)
     
     def inv_cdf(self,x):
-        min_obs = min(self.obs)
-        max_obs = max(self.obs)
+        min_obs = max(min(self.obs), self.cutoff[0])
+        max_obs = min(max(self.obs), self.cutoff[1])
         mid_obs = (min_obs + max_obs) / 2
         return minimize((lambda s, t : (self.cdf(s) - t)**2), x0=mid_obs, args = x, bounds=[(min_obs, max_obs)], tol=1E-10).x[0]
